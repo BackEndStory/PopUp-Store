@@ -24,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         return Padding(
                             padding: const EdgeInsets.only(bottom: 5,left: 5,right: 5),
                             child:GestureDetector(
-                               child: PopUpCard(date: '2023-01-03', title: '카카오팝업스토어',),
+                               child: PopUpCard(startdate: '2023-01-03',enddate: '2023-01-10', title: '카카오팝업스토어',),
                         )
                         );
 

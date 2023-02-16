@@ -2,11 +2,13 @@
 import 'package:flutter/material.dart';
 
 class PopUpCard extends StatelessWidget{
-  final String date;
+  final String startdate;
+  final String enddate;
   final String title;
 
   const PopUpCard({
-    required this.date,
+    required this.startdate,
+    required this.enddate,
     required this.title
 });
   @override
@@ -25,7 +27,12 @@ class PopUpCard extends StatelessWidget{
           child: Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: [
-             Text('$date',style: TextStyle(fontSize: 20),),
+             Row(
+               children: [
+                 Text('$startdate ~ ',style: TextStyle(fontSize: 13),),
+                 Text('$enddate',style: TextStyle(fontSize: 13),),
+               ],
+             ),
              Text('$title',style: TextStyle(fontSize: 17)),
 
            ],
