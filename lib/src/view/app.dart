@@ -15,6 +15,7 @@ const HomeScreen({
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<PopUpProvider>();
+    provider.getPopUpStore2();
     final popup_data = provider.data;
 
     return Scaffold(
