@@ -7,14 +7,15 @@ import 'package:provider/provider.dart/';
 
 class PopUpProvider extends ChangeNotifier{
   final PopUpRepository repository;
-
+  List<PopUpData> data = [];
   PopUpProvider({
     required this.repository
 }):super(){
     getPopUpStore2();
   }
   void getPopUpStore2() async{
-    await repository.getPopUpStore();
+    final response = await repository.getPopUpStore();
+    data.addAll(response);
     notifyListeners();
   }
 

@@ -1,30 +1,31 @@
 
 import 'package:flutter/material.dart';
 import 'package:pop_up_store/src/view/popup-card.dart';
+import 'package:provider/provider.dart';
+import 'package:pop_up_store/src/model/repository/PopUp-Provider.dart';
 
-class HomeScreen extends StatefulWidget{
-  const HomeScreen({Key? key}):super(key: key);
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
 
-class _HomeScreenState extends State<HomeScreen> {
+class HomeScreen extends StatelessWidget {
 
 
 
   @override
   Widget build(BuildContext context) {
+    final provider = context.watch<PopUpProvider>();
+    final popup_data = provider.data;
+
     return Scaffold(
             appBar: PopAppBar(),
             body: SafeArea(
               child: ListView.builder(
-                      itemCount: 5,
-                      itemBuilder: (context, position){
+                      itemCount: popup_data.length,
+                      itemBuilder: (context, index){
+                        final popdata_list = popup_data[index];
                         return Padding(
                             padding: const EdgeInsets.only(bottom: 5,left: 5,right: 5),
                             child:GestureDetector(
-                               child: PopUpCard(startdate: '2023-01-03',enddate: '2023-01-10', title: '카카오팝업스토어',),
+                               child: PopUpCard(startdate: popdata_list.startTime,enddate: popdata_list.endTime, title: popdata_list.title,),
                         )
                         );
 
