@@ -7,11 +7,11 @@ import 'package:dio/dio.dart';
 
 class PopUpRepository {
   final _dio = Dio();
-  final _baseUrl = 'http://localhost:3000';
+  final _baseUrl = 'http://localhost:3000/';
 
   Future<List<PopUpData>> getPopUpStore() async{
     final response = await _dio.get(
-      _baseUrl+'/',
+      _baseUrl+'api/',
     );
 
   return response.data
