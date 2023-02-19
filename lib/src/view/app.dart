@@ -15,39 +15,40 @@ const HomeScreen({
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<PopUpProvider>();
-    provider.getPopUpStore2();
-    final popup_data = provider.data;
 
+    final popup_data = provider.data;
+    print(1);
     return Scaffold(
+
             appBar: PopAppBar(),
             body: SafeArea(
               child: ListView.builder(
                       itemCount: popup_data.length,
                       itemBuilder: (context, index){
                         final popdata_list = popup_data[index];
-
+                        print(popdata_list);
                         if(popdata_list == null){
                           return Container();
                         }
                         return Padding(
                             padding: const EdgeInsets.only(bottom: 5,left: 5,right: 5),
                             child:GestureDetector(
-                               child: PopUpCard(startdate: popdata_list.startTime,enddate: popdata_list.endTime, title: popdata_list.title,),
+                               child: PopUpCard( startdate: popdata_list.startTime,
+                                                 enddate: popdata_list.endTime,
+                                                 title: popdata_list.title,),
                         )
                         );
-
-
-
                       },
-
                   ),
 
                 ),
 
             );
+
   }
 
   AppBar PopAppBar(){
+    print(2);
     return AppBar(
         centerTitle: true,
         title: Text('POP-UP Store',

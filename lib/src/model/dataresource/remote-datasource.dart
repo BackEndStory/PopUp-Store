@@ -1,6 +1,6 @@
 
 class PopUpData {
-  final String id;
+  final int id;
   final String startTime;
   final String endTime;
   final String title;
@@ -28,7 +28,7 @@ class PopUpData {
   }
 
   PopUpData copyWith({
-    String? id,
+    int? id,
     String? startTime,
     String? endTime,
     String? title,
