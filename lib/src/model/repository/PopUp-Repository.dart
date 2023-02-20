@@ -9,14 +9,14 @@ class PopUpRepository {
   final _dio = Dio();
   final _baseUrl = 'http://10.0.2.2:3000/';
 
-  Future<List<PopUpData>> getPopUpStore() async{
+  Future<List<Result2>> getPopUpStore() async{
     final response = await _dio.get(
       _baseUrl+'api/',
     );
-  print(response);
-  return response.data
-      .map<PopUpData>(
-      (x)=>PopUpData.fromJson(json: x)
+  print(response.data["result2"]);
+  return response.data["result2"]
+      .map<Result2>(
+      (x)=>Result2.fromJson(x)
   ).toList();
 }
 }

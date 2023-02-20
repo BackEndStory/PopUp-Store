@@ -1,13 +1,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:pop_up_store/src/model/dataresource/remote-datasource.dart';
-import 'package:pop_up_store/src/model/repository/PopUp-Provider.dart';
 import 'package:pop_up_store/src/model/repository/PopUp-Repository.dart';
-import 'package:provider/provider.dart';
 
 class PopUpProvider extends ChangeNotifier{
   final PopUpRepository repository;
-  List<PopUpData> data = [];
+  List<Result2> data = [];
   PopUpProvider({
     required this.repository
 }):super(){
@@ -15,8 +13,9 @@ class PopUpProvider extends ChangeNotifier{
   }
   void getPopUpStore2() async{
     final response = await repository.getPopUpStore();
+    print(response[0].startTime);
     data.addAll(response);
-    print(data);
+
     notifyListeners();
   }
 
