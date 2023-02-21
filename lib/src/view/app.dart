@@ -55,12 +55,6 @@ class HomeScreen extends StatelessWidget {
         ),
         ),
       backgroundColor: Colors.blue[300],
-      actions: [
-        IconButton(
-            onPressed: (){},
-            icon: Icon(Icons.home,)
-        )
-      ],
     );
   }
 
