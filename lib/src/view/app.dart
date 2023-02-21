@@ -6,11 +6,9 @@ import 'package:pop_up_store/src/model/repository/PopUp-Provider.dart';
 
 
 
+
 class HomeScreen extends StatelessWidget {
 
-const HomeScreen({
-  Key? key
-}):super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,20 +21,22 @@ const HomeScreen({
               child: ListView.builder(
                       itemCount: popup_data.length,
                       itemBuilder: (context, index){
-                        final popdata_list = popup_data[index];
+                      final popdata_list = popup_data[index];
 
                         if(popdata_list == null){
                           return Container();
                         }
                         return Padding(
                             padding: const EdgeInsets.only(top:2,bottom: 5,left: 5,right: 5),
-                            child:GestureDetector(
+
                                child: PopUpCard(
                                  startdate: popdata_list.startTime!,
                                  enddate: popdata_list.endTime!,
                                  title: popdata_list.title!,
+                                 url: popdata_list.url!,
                                ),
-                        )
+
+
                         );
                       },
                   ),
@@ -55,9 +55,15 @@ const HomeScreen({
         ),
         ),
       backgroundColor: Colors.blue[300],
-
+      actions: [
+        IconButton(
+            onPressed: (){},
+            icon: Icon(Icons.home,)
+        )
+      ],
     );
   }
+
 }
 
 
