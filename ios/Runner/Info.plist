@@ -9,7 +9,16 @@
 	      <key>NSAllowsArbitraryLoadsInWebContent</key>
 	      <true />
 	   </dict>
-
+        <key>CFBundleURLTypes</key>
+            <array>
+              <dict>
+              <key>CFBundleURLSchemes</key>
+              <array>
+                <!-- kakao login -->
+                <string>2d0007322556e89070b692a6dc68af91</string>
+              </array>
+              </dict>
+            </array>
 
 		<key>CFBundleDevelopmentRegion</key>
 		<string>$(DEVELOPMENT_LANGUAGE)</string>
