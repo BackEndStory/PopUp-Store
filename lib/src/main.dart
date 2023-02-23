@@ -12,7 +12,7 @@ import 'package:pop_up_store/src/view/kakao-login.dart';
 void main() async{
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  KakaoSdk.init(nativeAppKey: '2d0007322556e89070b692a6dc68af91');
+  KakaoSdk.init(nativeAppKey: '');
   final repository = PopUpRepository();
   final popupProvider = PopUpProvider(repository: repository);
   runApp(
