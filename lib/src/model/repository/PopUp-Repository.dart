@@ -19,4 +19,10 @@ class PopUpRepository {
       (x)=>Result2.fromJson(x)
   ).toList();
 }
+
+
+
+
+
+
 }
