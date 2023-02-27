@@ -14,7 +14,7 @@ class PopUpProvider extends ChangeNotifier {
     final response = await repository.getPopUpStore();
     print(response[0].startTime);
     data.addAll(response);
-
     notifyListeners();
   }
+
 }

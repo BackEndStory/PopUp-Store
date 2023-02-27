@@ -1,12 +1,11 @@
-
 class PopUpData {
   List<Result2>? result2;
   int? code;
   String? message;
 
-PopUpData({this.result2, this.code, this.message});
+  PopUpData({this.result2, this.code, this.message});
 
-PopUpData.fromJson( Map<String, dynamic> json) {
+  PopUpData.fromJson(Map<String, dynamic> json) {
     if (json['result2'] != null) {
       result2 = <Result2>[];
       json['result2'].forEach((v) {
@@ -67,26 +66,42 @@ class Result2 {
 // }
 }
 
+class KakaoToken {
+  bool? state;
+  Token? data;
 
+  KakaoToken({this.state, this.data});
 
+  KakaoToken.fromJson(Map<String, dynamic> json) {
+    state = json['state'];
+    data = json['data'] != null ? new Token.fromJson(json['data']) : null;
+  }
 
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['state'] = this.state;
+    if (this.data != null) {
+      data['data'] = this.data!.toJson();
+    }
+    return data;
+  }
+}
 
+class Token {
+  String? accessToken;
+  String? refreshToken;
 
+  Token({this.accessToken, this.refreshToken});
 
+  Token.fromJson(Map<String, dynamic> json) {
+    accessToken = json['accessToken'];
+    refreshToken = json['refreshToken'];
+  }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['accessToken'] = this.accessToken;
+    data['refreshToken'] = this.refreshToken;
+    return data;
+  }
+}

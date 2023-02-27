@@ -1,28 +1,22 @@
-
-
 import 'dart:async';
 import 'dart:io';
 import 'package:pop_up_store/src/model/dataresource/remote-datasource.dart';
 import 'package:dio/dio.dart';
+import 'package:pop_up_store/src/view/kakao-login.dart' as token;
 
 class PopUpRepository {
   final _dio = Dio();
   final _baseUrl = 'http://10.0.2.2:3000/';
 
-  Future<List<Result2>> getPopUpStore() async{
+  Future<List<Result2>> getPopUpStore() async {
     final response = await _dio.get(
-      _baseUrl+'api/',
+      _baseUrl + 'api/',
     );
-  print(response.data["result2"]);
-  return response.data["result2"]
-      .map<Result2>(
-      (x)=>Result2.fromJson(x)
-  ).toList();
-}
-
-
-
-
+    print(response.data["result2"]);
+    return response.data["result2"]
+        .map<Result2>((x) => Result2.fromJson(x))
+        .toList();
+  }
 
 
 }

@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
-
+import 'package:pop_up_store/src/model/dataresource/remote-datasource.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:pop_up_store/src/viewModel/login_platform.dart';
-
 
 class KakaoLogin extends StatefulWidget {
   const KakaoLogin({Key? key}) : super(key: key);
@@ -17,34 +17,31 @@ class KakaoLogin extends StatefulWidget {
 class _SampleScreenState extends State<KakaoLogin> {
   LoginPlatform _loginPlatform = LoginPlatform.none;
 
-
   void signInWithKakao() async {
     try {
-
       bool isInstalled = await isKakaoTalkInstalled();
       OAuthToken token = isInstalled
           ? await UserApi.instance.loginWithKakaoTalk()
           : await UserApi.instance.loginWithKakaoAccount();
-      final url = Uri.https('kapi.kakao.com', '/v2/user/me');
 
       print(token.accessToken);
 
-      // final response = await http.get(
-      //   url,
-      //   headers: {
-      //     HttpHeaders.authorizationHeader: 'Bearer ${token.accessToken}'
-      //   },
-      // );
-      // print(4);
-      // print(response);
-      //
-      // final profileInfo = json.decode(response.body);
-      // print(profileInfo.toString());
+      Future<String> kakao_token() async {
+        final _dio = Dio();
+        final _baseUrl = 'http://10.0.2.2:3000/';
 
+        final response = await _dio.post(_baseUrl + 'kakao_login/',
+            options: Options(
+              headers: {"authorization": token.accessToken},
+            ));
+        print(response.data["data"]);
+        return response.data["data"];
+      }
+
+      kakao_token();
       setState(() {
         _loginPlatform = LoginPlatform.kakao;
       });
-
     } catch (error) {
       print('카카오톡으로 로그인 실패 $error');
     }
@@ -52,7 +49,6 @@ class _SampleScreenState extends State<KakaoLogin> {
 
   void signOut() async {
     switch (_loginPlatform) {
-
       case LoginPlatform.google:
         break;
       case LoginPlatform.kakao:
@@ -78,17 +74,17 @@ class _SampleScreenState extends State<KakaoLogin> {
           child: _loginPlatform != LoginPlatform.none
               ? _logoutButton()
               : Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _loginButton(
-                signInWithKakao,
-              )
-            ],
-          )),
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    _loginButton(
+                      signInWithKakao,
+                    )
+                  ],
+                )),
     );
   }
 
-  Widget _loginButton( VoidCallback onTap) {
+  Widget _loginButton(VoidCallback onTap) {
     return Card(
       elevation: 5.0,
       shape: const CircleBorder(),
