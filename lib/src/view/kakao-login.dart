@@ -26,7 +26,7 @@ class _SampleScreenState extends State<KakaoLogin> {
 
       print(token.accessToken);
 
-      Future<String> kakao_token() async {
+      Future kakao_token() async {
         final _dio = Dio();
         final _baseUrl = 'http://10.0.2.2:3000/';
 
@@ -34,11 +34,12 @@ class _SampleScreenState extends State<KakaoLogin> {
             options: Options(
               headers: {"authorization": token.accessToken},
             ));
-        print(response.data["data"]);
         return response.data["data"];
       }
+      final tokens = await kakao_token();
 
-      kakao_token();
+      print(tokens["accessToken"]);
+      print(tokens["refreshToken"]);
       setState(() {
         _loginPlatform = LoginPlatform.kakao;
       });
