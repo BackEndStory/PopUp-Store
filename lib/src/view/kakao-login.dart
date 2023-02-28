@@ -6,6 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:pop_up_store/src/viewModel/login_platform.dart';
+import 'package:pop_up_store/src/view/app.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:pop_up_store/src/viewModel/login-state.dart';
+import 'package:pop_up_store/src/model/repository/PopUp-Repository.dart';
 
 class KakaoLogin extends StatefulWidget {
   const KakaoLogin({Key? key}) : super(key: key);
@@ -16,15 +20,15 @@ class KakaoLogin extends StatefulWidget {
 
 class _SampleScreenState extends State<KakaoLogin> {
   LoginPlatform _loginPlatform = LoginPlatform.none;
-
+  static final storage = new FlutterSecureStorage();
+  dynamic userInfo = '';
+  final al = new PopUpRepository();
   void signInWithKakao() async {
     try {
       bool isInstalled = await isKakaoTalkInstalled();
       OAuthToken token = isInstalled
           ? await UserApi.instance.loginWithKakaoTalk()
           : await UserApi.instance.loginWithKakaoAccount();
-
-      print(token.accessToken);
 
       Future kakao_token() async {
         final _dio = Dio();
@@ -34,12 +38,20 @@ class _SampleScreenState extends State<KakaoLogin> {
             options: Options(
               headers: {"authorization": token.accessToken},
             ));
+        print(response.data["data"]);
         return response.data["data"];
       }
+
       final tokens = await kakao_token();
 
+      print(tokens);
       print(tokens["accessToken"]);
       print(tokens["refreshToken"]);
+
+      storage.write(key: 'accessToken', value: tokens["accessToken"]);
+      storage.write(key: 'refreshToken', value: tokens["refreshToken"]);
+
+
       setState(() {
         _loginPlatform = LoginPlatform.kakao;
       });
@@ -73,7 +85,7 @@ class _SampleScreenState extends State<KakaoLogin> {
     return Scaffold(
       body: Center(
           child: _loginPlatform != LoginPlatform.none
-              ? _logoutButton()
+              ? HomeScreen()
               : Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -101,18 +113,6 @@ class _SampleScreenState extends State<KakaoLogin> {
           onTap: onTap,
         ),
       ),
-    );
-  }
-
-  Widget _logoutButton() {
-    return ElevatedButton(
-      onPressed: signOut,
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(
-          const Color(0xff0165E1),
-        ),
-      ),
-      child: const Text('로그아웃'),
     );
   }
 }

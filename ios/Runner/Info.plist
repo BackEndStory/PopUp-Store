@@ -15,7 +15,7 @@
               <key>CFBundleURLSchemes</key>
               <array>
                 <!-- kakao login -->
-                <string>kakao2</string>
+                <string>kakao</string>
               </array>
               </dict>
             </array>

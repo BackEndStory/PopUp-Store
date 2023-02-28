@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pop_up_store/src/viewModel/webview.dart';
+import 'package:pop_up_store/src/view/webview.dart';
 
 class PopUpCard extends StatelessWidget {
   final String startdate;

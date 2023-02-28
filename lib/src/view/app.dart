@@ -9,6 +9,7 @@ class HomeScreen extends StatelessWidget {
     final provider = context.watch<PopUpProvider>();
     final popup_data = provider.data;
 
+
     return Scaffold(
       appBar: PopAppBar(),
       body: SafeArea(
@@ -16,7 +17,6 @@ class HomeScreen extends StatelessWidget {
           itemCount: popup_data.length,
           itemBuilder: (context, index) {
             final popdata_list = popup_data[index];
-
             if (popdata_list == null) {
               return Container();
             }
@@ -36,6 +36,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
+
   AppBar PopAppBar() {
     return AppBar(
       centerTitle: true,
@@ -48,11 +49,3 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class Adob extends StatelessWidget {
-  const Adob({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
-}
