@@ -2,16 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:pop_up_store/src/view/popup-card.dart';
 import 'package:provider/provider.dart';
 import 'package:pop_up_store/src/model/repository/PopUp-Provider.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:pop_up_store/src/view/kakao-login.dart';
 
 class HomeScreen extends StatelessWidget {
+  static final storage = FlutterSecureStorage();
+
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<PopUpProvider>();
     final popup_data = provider.data;
 
-
     return Scaffold(
-      appBar: PopAppBar(),
+      appBar: PopAppBar(context),
       body: SafeArea(
         child: ListView.builder(
           itemCount: popup_data.length,
@@ -36,8 +39,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-
-  AppBar PopAppBar() {
+  AppBar PopAppBar(BuildContext context) {
     return AppBar(
       centerTitle: true,
       title: Text(
@@ -45,7 +47,16 @@ class HomeScreen extends StatelessWidget {
         style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
       ),
       backgroundColor: Colors.blue[300],
+      actions: [
+        IconButton(
+            onPressed: () {
+              storage.delete(key: "accessToken");
+              storage.delete(key: "refreshToken");
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (_) => KakaoLogin()));
+            },
+            icon: Icon(Icons.logout)),
+      ],
     );
   }
 }
-

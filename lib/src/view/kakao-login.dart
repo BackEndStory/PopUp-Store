@@ -15,13 +15,13 @@ class KakaoLogin extends StatefulWidget {
   const KakaoLogin({Key? key}) : super(key: key);
 
   @override
-  State<KakaoLogin> createState() => _SampleScreenState();
+  State<KakaoLogin> createState() => KakaoLoginState();
 }
 
-class _SampleScreenState extends State<KakaoLogin> {
+class KakaoLoginState extends State<KakaoLogin> {
   LoginPlatform _loginPlatform = LoginPlatform.none;
   static final storage = new FlutterSecureStorage();
-
+  final repo = new PopUpRepository();
 
   void signInWithKakao() async {
     try {
@@ -30,21 +30,8 @@ class _SampleScreenState extends State<KakaoLogin> {
           ? await UserApi.instance.loginWithKakaoTalk()
           : await UserApi.instance.loginWithKakaoAccount();
 
-      Future kakao_token() async {
-        final _dio = Dio();
-        final _baseUrl = 'http://10.0.2.2:3000/';
+      final tokens = await repo.kakao_token(token);
 
-        final response = await _dio.post(_baseUrl + 'kakao_login/',
-            options: Options(
-              headers: {"authorization": token.accessToken},
-            ));
-        print(response.data["data"]);
-        return response.data["data"];
-      }
-
-      final tokens = await kakao_token();
-
-      print(tokens);
       print(tokens["accessToken"]);
       print(tokens["refreshToken"]);
 
@@ -57,26 +44,6 @@ class _SampleScreenState extends State<KakaoLogin> {
     } catch (error) {
       print('카카오톡으로 로그인 실패 $error');
     }
-  }
-
-  void signOut() async {
-    switch (_loginPlatform) {
-      case LoginPlatform.google:
-        break;
-      case LoginPlatform.kakao:
-        await UserApi.instance.logout();
-        break;
-      case LoginPlatform.naver:
-        break;
-      case LoginPlatform.apple:
-        break;
-      case LoginPlatform.none:
-        break;
-    }
-
-    setState(() {
-      _loginPlatform = LoginPlatform.none;
-    });
   }
 
   @override

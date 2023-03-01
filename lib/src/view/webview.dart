@@ -14,7 +14,7 @@ class UrlWebView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: screen.PopAppBar(),
+      appBar: screen.PopAppBar(context),
       body: WebView(
         initialUrl: this.url,
         javascriptMode: JavascriptMode.unrestricted,

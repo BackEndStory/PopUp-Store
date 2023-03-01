@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:pop_up_store/src/view/app.dart';
-
 import 'package:pop_up_store/src/view/kakao-login.dart';
 
 class LoginState {
