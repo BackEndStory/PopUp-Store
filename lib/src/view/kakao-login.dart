@@ -21,8 +21,8 @@ class KakaoLogin extends StatefulWidget {
 class _SampleScreenState extends State<KakaoLogin> {
   LoginPlatform _loginPlatform = LoginPlatform.none;
   static final storage = new FlutterSecureStorage();
-  dynamic userInfo = '';
-  final al = new PopUpRepository();
+
+
   void signInWithKakao() async {
     try {
       bool isInstalled = await isKakaoTalkInstalled();
@@ -50,7 +50,6 @@ class _SampleScreenState extends State<KakaoLogin> {
 
       storage.write(key: 'accessToken', value: tokens["accessToken"]);
       storage.write(key: 'refreshToken', value: tokens["refreshToken"]);
-
 
       setState(() {
         _loginPlatform = LoginPlatform.kakao;

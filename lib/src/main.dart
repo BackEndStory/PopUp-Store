@@ -6,7 +6,7 @@ import 'package:pop_up_store/src/model/repository/PopUp-Repository.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:kakao_flutter_sdk_auth/kakao_flutter_sdk_auth.dart';
 import 'package:pop_up_store/src/view/kakao-login.dart';
-
+import 'package:pop_up_store/src/viewModel/login-state.dart';
 
 
 void main() async{
@@ -20,7 +20,7 @@ void main() async{
      create: (_)=> popupProvider,
      child: MaterialApp(
           debugShowCheckedModeBanner: false,
-      home:KakaoLogin()
+      home: await LoginState().asyncMethod()
       )
   )
   );
