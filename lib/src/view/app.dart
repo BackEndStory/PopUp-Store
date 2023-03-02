@@ -4,6 +4,9 @@ import 'package:provider/provider.dart';
 import 'package:pop_up_store/src/model/repository/PopUp-Provider.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:pop_up_store/src/view/kakao-login.dart';
+import 'package:pop_up_store/src/viewModel/login-state.dart';
+import 'package:pop_up_store/src/model/repository/PopUp-Repository.dart';
+
 
 class HomeScreen extends StatelessWidget {
   static final storage = FlutterSecureStorage();
@@ -40,6 +43,8 @@ class HomeScreen extends StatelessWidget {
   }
 
   AppBar PopAppBar(BuildContext context) {
+    final repo = new PopUpRepository();
+
     return AppBar(
       centerTitle: true,
       title: Text(
@@ -49,14 +54,21 @@ class HomeScreen extends StatelessWidget {
       backgroundColor: Colors.blue[300],
       actions: [
         IconButton(
-            onPressed: () {
-              storage.delete(key: "accessToken");
-              storage.delete(key: "refreshToken");
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (_) => KakaoLogin()));
+            onPressed: () async {
+              dynamic userInfo = await storage.read(key: 'accessToken');
+              final result = await repo.kakao_logout(userInfo);
+              print(result.data["message"]);
+              if(result.data["message"] == "Ok"){
+                storage.delete(key: "accessToken");
+                storage.delete(key: "refreshToken");
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (_) => KakaoLogin()));
+              }
             },
             icon: Icon(Icons.logout)),
       ],
     );
   }
+
+
 }

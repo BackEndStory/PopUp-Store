@@ -6,6 +6,9 @@ import 'package:pop_up_store/src/model/dataresource/remote-datasource.dart';
 import 'package:dio/dio.dart';
 import 'package:pop_up_store/src/view/kakao-login.dart';
 
+
+
+
 class PopUpRepository {
   final _dio = Dio();
   final _baseUrl = 'http://10.0.2.2:3000/';
@@ -22,10 +25,19 @@ class PopUpRepository {
   }
 
   Future kakao_token(OAuthToken token) async {
-    final response = await _dio.post(_baseUrl + 'kakao_login/',
+    final response = await _dio.post(_baseUrl + 'kakao/login/',
         options: Options(
           headers: {"authorization": token.accessToken},
         ));
     return response.data["data"];
   }
+
+  Future kakao_logout(dynamic token) async {
+    final response = await _dio.post(_baseUrl + 'kakao/logout/',
+        options: Options(
+          headers: {"authorization": token},
+        ));
+    return response;
+  }
+
 }
